@@ -36,6 +36,12 @@ class _ProductListsState extends State<ProductLists> {
     },
   ];
 
+
+  mySnackBar(message, context) {
+    return ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   double totalAmount = 0;
 
   @override
@@ -225,7 +231,8 @@ class _ProductListsState extends State<ProductLists> {
                   const Text('Total amount:',
                       style: TextStyle(
                         fontSize: 16,
-                      )),
+                      ),
+                  ),
                   Text(
                     '${totalAmount.toStringAsFixed(0)}\$',
                     style: const TextStyle(
@@ -235,7 +242,9 @@ class _ProductListsState extends State<ProductLists> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  mySnackBar("Congratulations...", context);
+                },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
                   backgroundColor: Colors.red,
