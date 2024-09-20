@@ -16,43 +16,47 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      tileColor: Colors.white,
-      title: Text(product.productName),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Product Code: ${product.productCode}'),
-          Text('Price: \$${product.unitPrice}'),
-          Text('Quantity: ${product.quantity}'),
-          Text('Total Price: \$${product.totalPrice}'),
-          const Divider(),
-          ButtonBar(
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  onUpdate(); // Trigger the update
-                },
-                icon: const Icon(Icons.edit),
-                label: const Text('Edit'),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  _deleteProduct(context);
-                },
-                icon: const Icon(
-                  Icons.delete_outline,
-                  color: Colors.red,
+    return Card(
+      shadowColor: Colors.black,
+      elevation: 10,
+      child: ListTile(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        tileColor: Colors.white,
+        title: Text(product.productName),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Product Code: ${product.productCode}'),
+            Text('Price: \$${product.unitPrice}'),
+            Text('Quantity: ${product.quantity}'),
+            Text('Total Price: \$${product.totalPrice}'),
+            const Divider(),
+            ButtonBar(
+              children: [
+                TextButton.icon(
+                  onPressed: () {
+                    onUpdate(); // Trigger the update
+                  },
+                  icon: const Icon(Icons.edit),
+                  label: const Text('Edit'),
                 ),
-                label: const Text(
-                  'Delete',
-                  style: TextStyle(color: Colors.red),
+                TextButton.icon(
+                  onPressed: () {
+                    _deleteProduct(context);
+                  },
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.red,
+                  ),
+                  label: const Text(
+                    'Delete',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

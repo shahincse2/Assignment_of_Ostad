@@ -31,7 +31,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0D0D0D),
       appBar: AppBar(
         title: const Text('Product list'),
         actions: [
@@ -45,41 +44,41 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: _inProgress
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ListView.separated(
-                itemCount: productList.length,
-                itemBuilder: (context, index) {
-                  return ProductItem(
-                    product: productList[index],
-                    onDelete: () {
-                      setState(
-                        () {
-                          productList.removeAt(index);
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.separated(
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                return ProductItem(
+                  product: productList[index],
+                  onDelete: () {
+                    setState(
+                      () {
+                        productList.removeAt(index);
+                      },
+                    );
+                  },
+                  onUpdate: () async {
+                    bool? shouldRefresh = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return UpdateProductScreen(
+                              product: productList[index]);
                         },
-                      );
-                    },
-                    onUpdate: () async {
-                      bool? shouldRefresh = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return UpdateProductScreen(
-                                product: productList[index]);
-                          },
-                        ),
-                      );
+                      ),
+                    );
 
-                      if (shouldRefresh == true) {
-                        getProductList();
-                      }
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 16);
-                },
-              ),
+                    if (shouldRefresh == true) {
+                      getProductList();
+                    }
+                  },
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 16);
+              },
             ),
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           bool? shouldRefresh = await Navigator.push(
