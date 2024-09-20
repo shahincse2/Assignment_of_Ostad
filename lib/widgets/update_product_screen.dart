@@ -18,7 +18,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shadowColor: Colors.black,
-      elevation: 10,
+      elevation: 8,
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         tileColor: Colors.white,
