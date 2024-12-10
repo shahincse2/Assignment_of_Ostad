@@ -13,10 +13,10 @@ class _HomeScreenState extends State<HomeScreen> {
   late GoogleMapController _googleMapController;
 
   Position? position;
-  final Set<Marker> _markers = {};
-  final Set<Polyline> _polylines = {};
+  Set<Marker> _markers = {};
+  Set<Polyline> _polylines = {};
 
-  final LatLng _destination = const LatLng(23.808639, 90.357718);
+  final LatLng _destination = const LatLng(23.810170, 90.357246);
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _markers.add(
       Marker(
-        markerId: const MarkerId('newLocation'),
+        markerId: MarkerId('newLocation'),
         position: _destination,
         infoWindow: InfoWindow(title: 'Destination', snippet: '$_destination'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
@@ -52,10 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Marker(
                 markerId: const MarkerId('currentLocation'),
                 position: LatLng(position!.latitude, position!.longitude),
-                infoWindow:
-                    InfoWindow(title: 'My current location', snippet: '$position'),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRed),
+                infoWindow: InfoWindow(title: 'My current location', snippet: '$position'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
               ),
             );
 
@@ -81,10 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _polylines.add(
         Polyline(
           polylineId: const PolylineId('route'),
-          points: [
-            LatLng(position!.latitude, position!.longitude),
-            _destination
-          ],
+          points: [LatLng(position!.latitude, position!.longitude), _destination],
           color: Colors.blue,
           width: 5,
         ),
@@ -105,10 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Marker(
               markerId: const MarkerId('currentLocation'),
               position: LatLng(position!.latitude, position!.longitude),
-              infoWindow:
-                  InfoWindow(title: 'My current location', snippet: '$position'),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueRed),
+              infoWindow: InfoWindow(title: 'My current location', snippet: '$position'),
+              icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
             ),
           );
 
@@ -129,14 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<bool> isLocationPermissionGranted() async {
     LocationPermission permission = await Geolocator.checkPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
+    return permission == LocationPermission.always || permission == LocationPermission.whileInUse;
   }
 
   Future<bool> requestLocationPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
+    return permission == LocationPermission.always || permission == LocationPermission.whileInUse;
   }
 
   Future<bool> checkGPSServiceEnable() async {
@@ -156,10 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
         trafficEnabled: true,
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
-        initialCameraPosition: CameraPosition(
+        initialCameraPosition: const CameraPosition(
           tilt: 6.5,
-          target: LatLng(position!.latitude, position!.longitude),
-          zoom: 17,
+          target: LatLng(23.808473, 90.357717),
+          zoom: 10,
         ),
         markers: _markers,
         polylines: _polylines,
@@ -168,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(backgroundColor: Colors.white60,
         onPressed: () {
           getCurrentLocation();
           if (position != null) {
@@ -182,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.my_location),
       ),
     );
   }
